@@ -6,8 +6,12 @@ var repoNameEl = document.querySelector("#repo-name");
 function getRepoName(){
   var queryString = document.location.search;
   var repoName = queryString.split("=")[1];
+
+  if (repoName){
   getRepoIssues(repoName);
   repoNameEl.textContent = repoName;
+  }
+  else { document.location.replace("./index.html");}
 };
 
 var getRepoIssues = function(repo) {
@@ -28,15 +32,15 @@ var getRepoIssues = function(repo) {
       });
     }
     else {
-      console.log(response);
-      alert("There was a problem with your request!");
+     document.location.replace("./index.html");
     }
   });
 };
 
 var displayIssues = function(issues) {
   if (issues.length === 0) {
-    issueContainerEl.textContent = "This repo has no open issues!";
+    issueContainerEl.textContent = "This repo has no open issues, redirecting!";
+    setTimeout(function(){document.location.replace("./index.html");}, 3000);
     return;
   }
 
